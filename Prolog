@@ -1,0 +1,60 @@
+llamadas(leonel,luis,85,lunes,[5,5,5,5,5]).
+llamadas(juan,luis,85,miercoles,[4,4,4,4,4]).
+llamadas(pedro,ronaldo,86,jueves,[4,4,4,4,4]).
+llamadas(maria,ronaldo,86,viernes,[3,3,3,3,3]).
+llamadas(evelyn,ronaldo,86,sabado,[5,5,5,5,5]).
+llamadas(jennifer,bryan,87,domingo,[2,2,2,2,2]).
+llamadas(elsa,bryan,87,lunes,[1,1,1,1,1]).
+llamadas(dayanna,bryan,87,martes,[2,2,2,2,2]).
+llamadas(kleber,omar,85,miercoles,[5,5,5,5,5]).
+llamadas(jose,omar,85,jueves,[4,4,4,4,4]).
+llamadas(josue,omar,85,viernes,[5,5,5,5,5]).
+llamadas(ariel,andres,86,sabado,[3,3,3,3,3]).
+llamadas(marcelo,andres,86,domingo,[3,3,3,3,3]).
+llamadas(fabian,andres,86,lunes,[2,2,2,2,2]).
+
+
+
+receptor(luis,25,l2285lopez,80).
+receptor(ronaldo,22,r5866valdez,75).
+receptor(bryan,22,b6877vera,11).
+receptor(omar,23,o6632limon,95).
+receptor(andres,22,a2214mero,50).
+
+
+
+
+
+lineas(85,10,pagos).
+lineas(86,15,contratos).
+lineas(87,12,fallas).
+
+
+%Reglas
+
+%Obtener los clientes atendidos por ???
+%
+
+obt1(Emisor,Receptor):-llamadas(Emisor,Receptor,_,_,_).
+
+%obtener datos de los receptores por edad
+%
+obt2(Edad,Nombre,Porcentaje):- receptor(Nombre,Edad,_,Porcentaje).
+
+%obtener informacion de las llamadas recibidad el lunes
+%
+obt3(Dia,Emisor,Receptor,Encuesta):- llamadas(Emisor,Receptor,_,Dia,Encuesta).
+
+% obtener datos nombre y porcentaje del receptor que recibio llamadas el
+% dia juevess
+%
+obt4(Dia,Emisor,Receptor,Porcentaje) :- obt3(Dia,Emisor,Receptor, _), receptor(Receptor,_,_,Porcentaje).
+
+%
+%
+obt5(Dia,Emisor,Receptor,Linea,NumEmpleados,Area):-llamadas(Emisor,Receptor,Linea,Dia,_),lineas(Linea,NumEmpleados,Area).
+
+% Obtener datos de llamadas receptadas por trabajadores menores a 25
+% años pertenecientes a la linea 86
+%
+obt6(Receptor,Usuario,Edad,Porcentaje):-receptor(Receptor,Edad,Usuario,Porcentaje),Edad<25,Porcentaje>=50.
